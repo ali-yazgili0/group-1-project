@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Timesheet</title>
+<style>
+        body { font-family: Arial, sans-serif; }
+        .navbar { background-color: #333; color: white; padding: 10px; }
+        .navbar a { color: white; margin: 0 10px; text-decoration: none; }
+        .dashboard { margin: 20px; }
+        .employee-section { border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; }
+        .employee-section input, .employee-section select { margin: 5px 0; }
+        .add-button { background-color: #4CAF50; color: white; padding: 5px 10px; border: none; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="navbar">
+<span>Sopra Steria</span>
+<a href="#">Timesheet</a>
+<a href="#">Employee</a>
+<a href="#">Codes</a>
+</div>
+<div class="dashboard">
+<h2>Manager Dashboard</h2>
+<div class="employee-section">
+<h3>Employee 1</h3>
+<label>Date: <input type="date" value="2024-09-10"></label><br>
+<label>Time from: <input type="time" value="08:00"></label><br>
+<label>Time to: <input type="time" value="18:00"></label><br>
+<label>Hours: <input type="text" value="10.00" readonly></label><br>
+<label>Comments: <input type="text"></label><br>
+<label>Code: 
+<select>
+<option>xxx</option>
+</select>
+</label><br>
+<label>Date Submitted: <input type="date" value="2024-09-10"></label><br>
+<button class="add-button">Add</button>
+</div>
+<div class="employee-section">
+<h3>Employee 2</h3>
+<!-- Similar fields as Employee 1 -->
+</div>
+</div>
+</body>
+</html>
