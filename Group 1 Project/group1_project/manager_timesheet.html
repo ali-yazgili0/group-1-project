@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Timesheet</title>
+    <link rel="stylesheet" href="manager_timesheet.css">
+    <script src="timesheet.js" defer></script>
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="menu-icon"><img src="https://yt3.ggpht.com/a/AATXAJx7eSQyOomxgypCShsc6_v07NWLqKy-OeKrOg=s900-c-k-c0xffffffff-no-rj-mo" alt="Profile Icon" class="bar-profile-icon"></div>
+        <div class="bar-profile-icon"></div>
+    </div>
+    <div class="sidebar">
+        <input type="text" placeholder="Search" style="width: 100%; margin-bottom: 10px;">
+        <button class="button" onclick="document.location='dashboard.html'">My Dashboard</button>
+        <button class="button">My Timesheet</button>
+        <button class="button" onclick="document.location='manager_codes.html'">Project codes</button>
+        <button class="button">Team Management</button>
+        <button class="button">Reporting</button>
+    </div>
+    <div class="content">
+        <div class="timesheet">
+            <h2>My Timesheet</h2>
+            <div class="section-select">
+                <select>
+                    <option>Select Section</option>
+                    <option>Section 1</option>
+                    <option>Section 2</option>
+                    <option>Section 3</option>
+                </select>
+            </div>
+
+            <div class="week-selector">
+                <span>Current Week: 09 September 2024</span>
+                <div>
+                    <button>&lt;</button>
+                    <button>&gt;</button>
+                </div>
+            </div>
+            <div class="calendar">
+
+                <div class="day">Monday</div>
+                <div class="day">Tuesday</div>
+                <div class="day">Wednesday</div>
+                <div class="day">Thursday</div>
+                <div class="day">Friday</div>
+                <div class="day">Saturday</div>
+                <div class="day">Sunday</div>
+
+
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text"><br></span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>               
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text"> <br> </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text"> <br> </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">  <br>  </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">   <br>   </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">   <br>   </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">   <br>  </span>
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <input type="text" class="time-input" value="   " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">  <br>  </span>
+                        <input type="text" class="time-input" value="  " style="display:none;">
+                        <input type="text" class="time-input" value="  " style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text">A02 F3<br>7.5 Hrs</span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text"> <br> </span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+                <div class="day">
+                    <div class="time-entry">
+                        <span class="time-text"><br></span>
+                        <input type="text" class="time-input" value="A02 F3" style="display:none;">
+                        <input type="text" class="time-input" value="7.5 Hrs" style="display:none;">
+                        <span class="edit-icon">✎</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="submit-button">Submit</button>
+            <button class="save-button">Save</button>
+
+        </div>
+        <div class="current-codes">
+            <div class="profile-list">
+                <h2>Employees</h2>
+                <ul>
+                    <li>
+                        <img src="https://ygo-assets-entities-emea.yougov.net/2b0fde34-2d07-11e6-a4bd-71dbf5f2854a.jpg" alt="Profile Icon" class="profile-icon">
+                        <span>Leonardo Decaprio</span>
+                    </li>
+                    <li>
+                        <img src="https://media.vanityfair.com/photos/6572003d5426adef96e62066/master/w_2560%2Cc_limit/1491840780" alt="Profile Icon" class="profile-icon">
+                        <span>Adele</span>
+                    </li>
+                    <li>
+                        <img src="https://m.media-amazon.com/images/M/MV5BMWZlMzRkZmYtZTg0My00MGE2LWFhZWQtOTRmZGQxMWY5OTJhXkEyXkFqcGdeQXVyMTMxODA4Njgx._V1_FMjpg_UX1000_.jpg" alt="Profile Icon" class="profile-icon">
+                        <span>Chris Evans</span>
+                    </li>
+                    <li>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/The_Rock_2023.jpg/640px-The_Rock_2023.jpg" alt="Profile Icon" class="profile-icon">
+                        <span>The Rock</span>
+                    </li>
+                </ul>
+            </div>
+        
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

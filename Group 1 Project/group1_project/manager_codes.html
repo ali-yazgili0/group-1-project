@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Codes to Employees</title>
+    <link rel="stylesheet" href="manager_codes.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="menu-icon"><img src="https://yt3.ggpht.com/a/AATXAJx7eSQyOomxgypCShsc6_v07NWLqKy-OeKrOg=s900-c-k-c0xffffffff-no-rj-mo" alt="Profile Icon" class="profile-icon"></div>
+        <div>Hello, Roha</div>
+        <div class="profile-icon"></div>
+    </div>
+    <div class="sidebar">
+        <input type="text" placeholder="Search" style="width: 100%; margin-bottom: 10px;">
+        <button class="button" onclick="document.location='dashboard.html'">My Dashboard</button>
+        <button class="button" onclick="document.location='manager_timesheet.html'">My Timesheet</button>
+        <button class="button" onclick="document.location='manager_codes.html'">Project codes</button>
+        <button class="button">Team Management</button>
+        <button class="button">Reporting</button>
+    </div>
+    <div class="form-container">
+        <h2>Code Assignment</h2>
+        <form id="assignCodeForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name:</label>
+                <input type="text" id="employeeName" name="employeeName" required>
+            </div>
+            <div class="form-group">
+                <label for="code">Code:</label>
+                <input type="text" id="code" name="code" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" id="startTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" id="endTime" name="endTime" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Assign Code</button>
+            </div>
+        </form>
+    </div>
+    <script src="manager_codes.js"></script>
+</body>
+
+</html>

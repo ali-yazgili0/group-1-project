@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-left: 200px;
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    height: calc(100vh - 50px);
+    padding: 20px;
+    float: left;
+}
+
+.menu-icon,
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+}
+
+
+h1 {
+    font-size: 36px;
+    color: #444;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid layout for the dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+/* Circular Graph */
+.graph-section {
+    text-align: center;
+}
+
+.circular-graph {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 0% 75%, #ddd 75% 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.percentage {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* List styles for events, holidays, and notifications */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.event-list li {
+    color: #2196f3;
+}
+
+.holiday-list li {
+    color: #ff9800;
+}
+
+.notification-list li {
+    color: #f44336;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}

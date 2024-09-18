@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Basic Dashboard</title>
+        <link rel="stylesheet" href="dashboard.css">
+    </head>
+    <body>
+        <div class="header">
+            <div class="menu-icon"><img src="https://yt3.ggpht.com/a/AATXAJx7eSQyOomxgypCShsc6_v07NWLqKy-OeKrOg=s900-c-k-c0xffffffff-no-rj-mo" alt="Profile Icon" class="profile-icon"></div>
+            <div>Hello, Roha</div>
+            <div class="profile-icon"></div>
+        </div>
+        <div class="sidebar">
+            <input type="text" placeholder="Search" style="width: 100%; margin-bottom: 10px;">
+            <button class="button">My Dashboard</button>
+            <button class="button" onclick="document.location='manager_timesheet.html'">My Timesheet</button>
+            <button class="button" onclick="document.location='manager_codes.html'">Project codes</button>
+            <button class="button">Team Management</button>
+            <button class="button">Reporting</button>
+        </div>
+        <div class="container">
+            <header>
+                <h1>Dashboard</h1>
+            </header>
+    
+            <!-- Grid Layout for Dashboard Sections -->
+            <div class="dashboard-grid">
+                <!-- Circular Graph Section -->
+                <section class="graph-section">
+                    <h2>Performance Overview</h2>
+                    <div class="circular-graph">
+                        <div class="circle">
+                            <span class="percentage">75%</span>
+                        </div>
+                    </div>
+                </section>
+    
+                <!-- Events Section -->
+                <section class="events-section">
+                    <h2>Upcoming Events</h2>
+                    <ul class="event-list">
+                        <li>Project Deadline - Sept 30, 2024</li>
+                        <li>Team Meeting - Oct 3, 2024</li>
+                        <li>Client Presentation - Oct 5, 2024</li>
+                    </ul>
+                </section>
+    
+                <!-- Holidays Section -->
+                <section class="holidays-section">
+                    <h2>Upcoming Holidays</h2>
+                    <ul class="holiday-list">
+                        <li>Thanksgiving - Nov 28, 2024</li>
+                        <li>Christmas - Dec 25, 2024</li>
+                        <li>New Year's Day - Jan 1, 2025</li>
+                    </ul>
+                </section>
+    
+                <!-- Notifications Section -->
+                <section class="notifications-section">
+                    <h2>Recent Notifications</h2>
+                    <ul class="notification-list">
+                        <li>System Maintenance on Sept 25, 2024</li>
+                        <li>New Feature Update Available</li>
+                        <li>Security Patch Installed</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </body>
+    </html>
