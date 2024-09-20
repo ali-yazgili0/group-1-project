@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Timesheet Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 40px);
+            overflow: auto;
+        }
+
+        h1 {
+            grid-column: span 2;
+            text-align: center;
+            color: #333;
+        }
+
+        .chart-container, .metrics-container, .notifications-container {
+            position: relative;
+            height: 300px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 8px;
+        }
+
+        #progress-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0%, #4caf50 var(--percentage), #ddd var(--percentage), #ddd 100%);
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #4caf50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        li {
+            padding: 10px;
+            background: #e3f2fd;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        li:hover {
+            background: #bbdefb;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4caf50;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            margin: auto;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        
+        <div class="chart-container">
+            <canvas id="timesheetChart"></canvas>
+            <button id="update-chart">Update Chart</button>
+        </div>
+        
+        <div class="progress-circle-container">
+            <h2>Submission Progress</h2>
+            <div id="progress-circle">0%</div>
+            <button id="update-progress">Update Progress</button>
+        </div>
+
+        <div class="metrics-container">
+            <h2>Team Performance</h2>
+            <p>Average Hours Worked: <span id="avg-hours">0</span></p>
+            <p>Total Submitted: <span id="total-submitted">0</span></p>
+        </div>
+        
+        <div class="notifications-container">
+            <h2>Pending Approvals</h2>
+            <ul id="pending-approvals"></ul>
+        </div>
+
+        <div class="unsubmitted-timesheets">
+            <h2>Unsubmitted Timesheets</h2>
+            <ul id="unsubmitted-list"></ul>
+        </div>
+        
+        <div class="saved-timesheets">
+            <h2>Saved Timesheets</h2>
+            <ul id="saved-timesheets-list"></ul>
+            <button id="submit-timesheets">Submit Timesheets</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let timesheetData = {
+            submitted: 60,
+            approved: 45,
+            rejected: 10,
+            totalEmployees: 100,
+            totalHours: 3000,
+        };
+
+        // Function to randomly update timesheet data
+        const updateTimesheetData = () => {
+            timesheetData = {
+                submitted: Math.floor(Math.random() * 100),
+                approved: Math.floor(Math.random() * 80),
+                rejected: Math.floor(Math.random() * 20),
+                totalEmployees: 100,
+                totalHours: Math.floor(Math.random() * 5000),
+            };
+            updateMetrics();
+        };
+
+        // Update metrics on the dashboard
+        const updateMetrics = () => {
+            const avgHours = timesheetData.totalHours / timesheetData.totalEmployees;
+            document.getElementById('avg-hours').textContent = avgHours.toFixed(2);
+            document.getElementById('total-submitted').textContent = timesheetData.submitted;
+        };
+
+        // Create the chart
+        const ctx = document.getElementById('timesheetChart').getContext('2d');
+        let timesheetChart;
+        const createChart = () => {
+            const chartData = {
+                labels: ['Submitted', 'Approved', 'Rejected'],
+                datasets: [{
+                    label: 'Timesheets',
+                    data: [timesheetData.submitted, timesheetData.approved, timesheetData.rejected],
+                    backgroundColor: ['#4caf50', '#2196F3', '#f44336'],
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            };
+    
+            timesheetChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Timesheet Status'
+                        }
+                    }
+                }
+            });
+        };
+
+        createChart(); // Initialize the chart
+
+        // Update the chart dynamically
+        const updateChart = () => {
+            updateTimesheetData();
+            timesheetChart.data.datasets[0].data = [timesheetData.submitted, timesheetData.approved, timesheetData.rejected];
+            timesheetChart.update();
+        };
+
+        document.getElementById('update-chart').addEventListener('click', updateChart);
+
+        // Set progress circle percentage dynamically
+        const updateProgressCircle = () => {
+            const percentage = (timesheetData.submitted / timesheetData.totalEmployees) * 100;
+            document.getElementById('progress-circle').style.setProperty('--percentage', `${percentage}%`);
+            document.getElementById('progress-circle').textContent = `${Math.round(percentage)}%`;
+        };
+
+        document.getElementById('update-progress').addEventListener('click', () => {
+            updateTimesheetData();
+            updateProgressCircle();
+        });
+
+        // Auto-update every 10 seconds
+        setInterval(() => {
+            updateChart();
+            updateProgressCircle();
+        }, 10000);
+
+        // Simulate team members with unsubmitted timesheets
+        const unsubmittedMembers = ['Uma Thurman', 'Tim Roth', 'Diane Kruger', 'Jamie Foxx'];
+        const unsubmittedList = document.getElementById('unsubmitted-list');
+        unsubmittedList.innerHTML = ''; // Clear existing
+        unsubmittedMembers.forEach(member => {
+            const li = document.createElement('li');
+            li.textContent = member;
+            unsubmittedList.appendChild(li);
+        });
+
+        // Simulate pending approvals
+        const pendingApprovals = ['Timesheet from Kerry Washington', 'Timesheet from Uma Thurma'];
+        const pendingList = document.getElementById('pending-approvals');
+        pendingList.innerHTML = ''; // Clear existing
+        pendingApprovals.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            pendingList.appendChild(li);
+        });
+
+        // Simulate saved timesheets
+        const savedTimesheets = [
+            { employee: 'Salma Hayek', hours: 8, date: '2024-09-18' },
+            { employee: 'Quentin Tarantino', hours: 7.5, date: '2024-09-18' },
+            { employee: 'Cillian Murphy', hours: 6, date: '2024-09-19' },
+        ];
+        const savedList = document.getElementById('saved-timesheets-list');
+        savedTimesheets.forEach(sheet => {
+            const li = document.createElement('li');
+            li.textContent = `${sheet.employee} - ${sheet.hours} hours on ${sheet.date}`;
+            savedList.appendChild(li);
+        });
+
+        // Button to submit saved timesheets
+        document.getElementById('submit-timesheets').addEventListener('click', () => {
+            alert('Saved timesheets submitted!');
+        });
+    </script>
+</body>
+</html>

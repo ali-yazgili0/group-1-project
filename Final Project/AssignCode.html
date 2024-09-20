@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Codes to Employees</title>
+    <link rel="stylesheet" href="assets/css/AssignCode.css">
+   
+</head>
+<body>
+    <div class="form-container">
+        <h2>Code Assignment</h2>
+        <form id="assignCodeForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name:</label>
+                <input type="text" id="employeeName" name="employeeName" required>
+            </div>
+            <div class="form-group">
+                <label for="code">Code:</label>
+                <input type="text" id="code" name="code" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" id="startTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" id="endTime" name="endTime" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Assign Code</button>
+            </div>
+        </form>
+        <div class="tooltip">
+            <p id="feedbackMessage" class="tooltiptext">Code assigned</p>
+        </div>
+    </div>
+    <script src="assets/js/AssignCode.js"></script>
+</body>
+</html>

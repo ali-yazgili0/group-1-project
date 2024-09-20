@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Time Approval</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 1000px; /* Adjust if necessary */
+            max-height: 800px; /* Adjust if necessary */
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            flex: 1;
+            overflow: auto;
+        }
+
+        .day {
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .day input[type="number"], .day input[type="text"] {
+            margin-top: 3px;
+            font-size: 10px;
+            width: 90%;
+            padding: 3px;
+        }
+
+        .disabled {
+            background-color: #d3d3d3;
+            pointer-events: none;
+        }
+
+        .approve-button, .reject-button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        .reject-button {
+            background-color: #dc3545;
+        }
+
+        .month-navigation {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .month-navigation button {
+            background-color: #007bff;
+            color: white;
+            padding: 6px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 3px;
+            font-size: 12px;
+        }
+
+        .month-navigation span {
+            font-size: 12px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Team Member Selection View -->
+        <div id="team-selection-view">
+            <h2>Select Team Member</h2>
+            <div class="form-group">
+                <label for="team-member">Select Team Member:</label>
+                <select id="team-member" onchange="showCalendarView()">
+                    <option value="">-- Select Team Member --</option>
+                    <!-- Dynamically populated with real data -->
+                    <option value="member-1">John Travolta</option>
+                    <option value="member-2">Bruce Willis</option>
+                    <option value="member-3">Kerry Washington</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div id="calendar-view" class="hidden">
+            <h2>Review & Approve Timesheets</h2>
+
+            <!-- Back Button -->
+            <button class="back-button" id="back-button" onclick="showTeamSelectionView()">Back</button>
+
+            <!-- Month Navigation -->
+            <div class="month-navigation">
+                <button id="prev-month">Previous Month</button>
+                <span id="month-label"></span>
+                <button id="next-month">Next Month</button>
+            </div>
+
+            <!-- Calendar -->
+            <div class="calendar" id="calendar">
+                <!-- Dynamic days will be inserted here -->
+            </div>
+
+            <!-- Approve and Reject Buttons -->
+            <button class="approve-button" onclick="approveTimesheet()">Approve</button>
+            <button class="reject-button" onclick="rejectTimesheet()">Reject</button>
+        </div>
+    </div>
+
+    <script>
+        const teamSelectionView = document.getElementById('team-selection-view');
+        const calendarView = document.getElementById('calendar-view');
+        const calendar = document.getElementById('calendar');
+        const monthLabel = document.getElementById('month-label');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        const backButton = document.getElementById('back-button');
+        let currentDate = new Date();
+        let selectedTeamMember = null;
+
+        // Calculate 3 months in the past for validation
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+        // Update month label
+        function updateMonthLabel() {
+            const monthOptions = { month: 'long', year: 'numeric' };
+            monthLabel.textContent = currentDate.toLocaleDateString('en-US', monthOptions);
+        }
+
+        // Generate full month calendar
+        function generateCalendar(date = new Date()) {
+            calendar.innerHTML = ''; // Clear previous calendar
+
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            // Set to first day of the month
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+
+            // Get the starting day of the week (Sunday = 0, Monday = 1, etc.)
+            let startDay = firstDayOfMonth.getDay();
+            let totalDays = lastDayOfMonth.getDate();
+
+            // Generate blank cells for days before the 1st of the month
+            for (let i = 0; i < startDay; i++) {
+                const blankCell = document.createElement('div');
+                blankCell.classList.add('day');
+                blankCell.innerHTML = '&nbsp;';
+                calendar.appendChild(blankCell);
+            }
+
+            // Generate day cells with submitted time entry status
+            for (let day = 1; day <= totalDays; day++) {
+                const currentDay = new Date(year, month, day);
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+
+                dayElement.innerHTML = `
+                    <div>${currentDay.toLocaleDateString('en-US', { day: 'numeric', weekday: 'short' })}</div>
+                    <label for="code-${day}">Code</label>
+                    <input type="text" id="code-${day}" placeholder="Enter Code">
+                    <label for="hours-${day}">Hours</label>
+                    <input type="number" id="hours-${day}" min="0" max="24" placeholder="0-24 hours">
+                `;
+
+                // Disable past dates or outside the allowed range
+                if (currentDay < threeMonthsAgo) {
+                    dayElement.classList.add('disabled');
+                    dayElement.querySelectorAll('input').forEach(input => input.disabled = true);
+                }
+
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        // Show calendar view and hide team selection view
+        function showCalendarView() {
+            const memberSelect = document.getElementById('team-member');
+            selectedTeamMember = memberSelect.value;
+
+            if (!selectedTeamMember) {
+                alert("Please select a team member.");
+                return;
+            }
+
+            teamSelectionView.classList.add('hidden');
+            calendarView.classList.remove('hidden');
+            backButton.style.display = 'block'; // Show back button
+
+            generateCalendar(currentDate); // Generate calendar for the current month
+            updateMonthLabel();
+        }
+
+        // Show team selection view and hide calendar view
+        function showTeamSelectionView() {
+            teamSelectionView.classList.remove('hidden');
+            calendarView.classList.add('hidden');
+            backButton.style.display = 'none'; // Hide back button
+        }
+
+        // Approve timesheet data
+        function approveTimesheet() {
+            const days = calendar.querySelectorAll('.day:not(.disabled)');
+            let timeEntries = [];
+
+            days.forEach(dayElement => {
+                const code = dayElement.querySelector(`input[type="text"]`).value;
+                const hours = dayElement.querySelector(`input[type="number"]`).value;
+
+                if (code && hours) {
+                    timeEntries.push({
+                        day: dayElement.querySelector('div').innerText,
+                        code: code,
+                        hours: hours
+                    });
+                }
+            });
+
+            if (timeEntries.length > 0) {
+                alert("Timesheets approved successfully!\n\nHere's a summary of the entries:\n" +
+                      timeEntries.map(entry => `${entry.day}: ${entry.hours} hours (Code: ${entry.code})`).join('\n'));
+            } else {
+                alert("No entries to approve.");
+            }
+        }
+
+        // Reject timesheet data
+        function rejectTimesheet() {
+            alert("Timesheets rejected. No changes were made.");
+        }
+
+        // Navigate to previous month
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar(currentDate);
+            updateMonthLabel();
+        });
+
+        // Navigate to next month
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar(currentDate);
+            updateMonthLabel();
+        });
+
+        // Initialize views
+        updateMonthLabel();
+    </script>
+</body>
+</html>

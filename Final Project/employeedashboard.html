@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Timesheet Dashboard</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            width: 100%;
+            overflow-y: auto; /* Enable vertical scrolling */
+            box-sizing: border-box;
+        }
+
+        h1 {
+            grid-column: span 2;
+            text-align: center;
+            color: #333;
+            margin: 0;
+        }
+
+        .chart-container, .progress-circle-container, .reminders-container {
+            position: relative;
+            min-height: 250px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .chart-container {
+            height: 100%; /* Makes sure it fills available height */
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 8px;
+        }
+
+        #progress-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0%, #4caf50 var(--percentage), #ddd var(--percentage), #ddd 100%);
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #4caf50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        li {
+            padding: 10px;
+            background: #e3f2fd;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        li:hover {
+            background: #bbdefb;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4caf50;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            margin: 10px auto 0 auto;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        /* Adjusting spacing for the items inside grid */
+        .reminders-container, .saved-timesheets {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Keep buttons at the bottom */
+        .saved-timesheets {
+            justify-content: space-between;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        
+        <div class="chart-container">
+            <canvas id="employeeChart"></canvas>
+            <button id="update-chart">Update Chart</button>
+        </div>
+        
+        <div class="progress-circle-container">
+            <h2>Submission Progress</h2>
+            <div id="progress-circle">0%</div>
+            <button id="update-progress">Update Progress</button>
+        </div>
+
+        <div class="reminders-container">
+            <h2>Reminders</h2>
+            <ul id="reminders-list"></ul>
+        </div>
+
+        <div class="saved-timesheets">
+            <h2>Your Saved Timesheets</h2>
+            <ul id="saved-timesheets-list"></ul>
+            <button id="submit-timesheets">Submit Timesheets</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Simulated initial data
+        let timesheetData = {
+            submitted: 5,
+            approved: 3,
+            rejected: 1,
+            totalEmployees: 1,
+            totalHours: 40, // Total hours worked by the employee
+        };
+
+        // Create the chart
+        const ctx = document.getElementById('employeeChart').getContext('2d');
+        let employeeChart;
+        const createChart = () => {
+            const chartData = {
+                labels: ['Submitted', 'Approved', 'Rejected'],
+                datasets: [{
+                    label: 'Your Timesheets',
+                    data: [timesheetData.submitted, timesheetData.approved, timesheetData.rejected],
+                    backgroundColor: ['#4caf50', '#2196F3', '#f44336'],
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            };
+
+            employeeChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Your Timesheet Status'
+                        }
+                    }
+                }
+            });
+        };
+        
+        createChart(); // Initialize the chart
+
+        // Function to simulate dynamic data update
+        const updateTimesheetData = () => {
+            timesheetData = {
+                submitted: Math.floor(Math.random() * 10),
+                approved: Math.floor(Math.random() * 7),
+                rejected: Math.floor(Math.random() * 3),
+                totalEmployees: 1,
+                totalHours: Math.floor(Math.random() * 50)
+            };
+        };
+
+        // Update the chart dynamically
+        const updateChart = () => {
+            updateTimesheetData();
+            employeeChart.data.datasets[0].data = [timesheetData.submitted, timesheetData.approved, timesheetData.rejected];
+            employeeChart.update();
+        };
+
+        document.getElementById('update-chart').addEventListener('click', updateChart);
+
+        // Progress circle update logic
+        const updateProgressCircle = () => {
+            const percentage = (timesheetData.submitted / timesheetData.totalEmployees) * 100;
+            document.getElementById('progress-circle').style.setProperty('--percentage', `${percentage}%`);
+            document.getElementById('progress-circle').textContent = `${Math.round(percentage)}%`;
+        };
+
+        document.getElementById('update-progress').addEventListener('click', () => {
+            updateTimesheetData();
+            updateProgressCircle();
+        });
+
+        // Auto-update the chart and progress every 5 seconds
+        setInterval(() => {
+            updateChart();
+            updateProgressCircle();
+        }, 5000);
+
+        // List of reminders
+        const reminders = ['Remember to submit your timesheet for the last week!', 'Check the status of your recent submissions.'];
+        const remindersList = document.getElementById('reminders-list');
+        reminders.forEach(reminder => {
+            const li = document.createElement('li');
+            li.textContent = reminder;
+            remindersList.appendChild(li);
+        });
+
+        // List of saved timesheets
+        const savedTimesheets = [
+            { date: '2024-09-18', hours: 8 },
+            { date: '2024-09-19', hours: 8 },
+            { date: '2024-09-20', hours: 8 },
+        ];
+        const savedList = document.getElementById('saved-timesheets-list');
+        savedTimesheets.forEach(sheet => {
+            const li = document.createElement('li');
+            li.textContent = `Date: ${sheet.date} - Hours: ${sheet.hours}`;
+            savedList.appendChild(li);
+        });
+
+        // Button to submit saved timesheets
+        document.getElementById('submit-timesheets').addEventListener('click', () => {
+            alert('Your saved timesheets have been submitted!');
+        });
+    </script>
+</body>
+</html>
